@@ -6,7 +6,8 @@
 
 **Important Notes**
 -
-- datasets: add your csv here to be loaded into RAW
+- datasets: add your csvs here to be loaded into RAW
 
-- No changes should be done inside of the RAW-deploy folder except to change the credentials that the exalocal service is using to connect to Raw
+- No changes should be done inside of the RAW-deploy folder except to change the credentials that the exalocal service is using to connect to Raw (in the docker-compose.yml)
+
 - The connection to Raw is unsecured
