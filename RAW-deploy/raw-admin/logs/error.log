@@ -1,0 +1,1 @@
+2017/02/10 20:04:03 [error] 8#8: *1 upstream timed out (110: Operation timed out) while reading response header from upstream, client: 172.19.0.1, server: , request: "GET /schemas HTTP/1.1", upstream: "http://172.19.0.3:5555/schemas", host: "localhost", referrer: "http://localhost/"
