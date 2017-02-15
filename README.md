@@ -2,6 +2,9 @@
 -
 
 1) Execute start.sh (set ups the enviroment and executes Exareme and Raw)
+    - -h for options
+    - exalocal starts only exareme
+    - all starts Exareme kai Raw
 2) Use the ip:9090/exa-view/index.html web page to send queries to Exareme and view the results.
 
 **Important Notes**
