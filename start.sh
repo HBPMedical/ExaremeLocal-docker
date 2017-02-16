@@ -28,6 +28,10 @@ case $1 in
     shift
     ./start.sh unsecured up exalocal
     ;;
+    raw)
+    shift
+    ./start.sh unsecured up RawUI RawEngine
+    ;;
     *)
     usage
     exit 2
