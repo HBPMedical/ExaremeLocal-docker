@@ -43,8 +43,9 @@ services:
       - RAWPASSWORD=federation
       - RAWHOST=raw-ui
       - RAWPORT=5555
-      - RAWENDPOINT=query-start
+      - RAWENDPOINT=query
       - RAWRESULTS=all
+      - RAWDATAKEY=output #query used with output, query-start with data
     ports:
       - "9090:9090"
 
@@ -66,7 +67,7 @@ services:
      - POSTGRES_DB=mip
 
   RawUI:
-    image: "hbpmip/postgresraw-ui"
+    image: "hbpmip/postgresraw-ui:v0.3"
     container_name: "raw-ui"
     restart: unless-stopped
     networks:
