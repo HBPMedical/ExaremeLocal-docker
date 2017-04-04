@@ -113,5 +113,5 @@ For more options and configuration, see the online help of ```docker-compose``` 
 
 # Exareme Notes
 1. Node n2 is Exareme's master node (see start.sh)
-2. Exareme's master node needs master flag argument and number of workers to wait (see docker-compose-swarm-examaster.yml)
+2. Exareme's master node needs the master flag argument and number of workers to wait for before starting (see docker-compose-swarm-examaster.yml)
 3. Consul's url is stored on consul_url.conf file (see vm-create.sh and start.sh)
