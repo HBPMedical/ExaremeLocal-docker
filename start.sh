@@ -49,14 +49,14 @@ case $1 in
     ;;
     distributed)
     shift   
-    ./exaswarm/vm-destroy.sh;
-    ./exaswarm/vm-create.sh;
-    ./exaswarm//start.sh swarm n0 create
-    ./exaswarm//start.sh swarm n0 start
-    ./exaswarm//start.sh swarm n1 create
-    ./exaswarm//start.sh swarm n1 start
-    ./exaswarm//start.sh swarm n2 create
-    ./exaswarm//start.sh swarm n2 start
+    ./vm-destroy.sh;
+    ./vm-create.sh;
+    ./start.sh swarm n0 create
+    ./start.sh swarm n0 start
+    ./start.sh swarm n1 create
+    ./start.sh swarm n1 start
+    ./start.sh swarm n2 create
+    ./start.sh swarm n2 start
     ;;
     *)
     usage

@@ -33,7 +33,24 @@ networks:
   net-federation:
 
 services:
-
+  exalocal:
+    image:  hbpmip/exaremelocal
+    networks:
+      - "net-local"
+    container_name: "exaremelocal"
+    restart: unless-stopped
+    environment:
+      - MASTER_FLAG=master
+      - RAWUSERNAME=federation
+      - RAWPASSWORD=federation
+      - RAWHOST=raw-ui
+      - RAWPORT=5555
+      - RAWENDPOINT=query
+      - RAWRESULTS=all
+      - RAWDATAKEY=output #query used with output, query-start with data
+      - MODE=local
+    ports:
+      - "9090:9090"
   RawEngine:
     image: "hbpmip/postgresraw"
     container_name: "raw-engine"
@@ -78,7 +95,7 @@ services:
     networks:
      - "net-local"
     ports:
-     - "80:80"
+     - "888:80"
     volumes:
      - "${raw_admin_htpasswd}:/etc/nginx/.htpasswd:ro"
      - "${raw_admin_conf}:/etc/nginx/nginx.conf:ro"

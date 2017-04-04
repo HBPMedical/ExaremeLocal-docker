@@ -5,7 +5,7 @@ VersionOfMipAlgorithms="HEAD"
 for i in "$@"
 do
 case $i in
-    -m=*|-mode=*)
+    -a=*|-algorithms=*)
     LOCALORMIPALGORITHMS="${i#*=}"
     shift # past argument=value
     ;;
@@ -14,7 +14,7 @@ case $i in
     shift # past argument=value
     ;;
     -h|-help)
-    echo "use -mode=local to use the algorithms in exareme-tools/algorithms-dev or -mode= repo to download form the mip-algorithms repo at github"
+    echo "use -algorithms=local to use the algorithms in exareme-tools/algorithms-dev or -algorithms=repo to download form the mip-algorithms repo at github"
      echo " -version=<version hash> specifies which version to include, default: HEAD";
      exit;
     shift # past argument=value

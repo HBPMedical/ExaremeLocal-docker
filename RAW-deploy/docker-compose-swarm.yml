@@ -40,7 +40,7 @@ networks:
 services:
 
   SWARMNODE-exaworker:
-    image:  vagsai/exaremedist:v1
+    image:  hbpmip/exaremelocal
     environment:
       - CONSULURL=SET_CONSULURL
       - RAWUSERNAME=federation
@@ -50,6 +50,7 @@ services:
       - RAWENDPOINT=query
       - RAWRESULTS=all
       - RAWDATAKEY=output #query used with output, query-start with data
+      - MODE=global
     ports:
       - "9090:9090"
     networks:

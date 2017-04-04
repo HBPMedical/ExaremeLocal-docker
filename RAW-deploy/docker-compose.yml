@@ -47,6 +47,7 @@ services:
       - RAWENDPOINT=query
       - RAWRESULTS=all
       - RAWDATAKEY=output #query used with output, query-start with data
+      - MODE=local
     ports:
       - "9090:9090"
 
