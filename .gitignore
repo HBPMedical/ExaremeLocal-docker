@@ -7,6 +7,14 @@ RAW-deploy/shared/datashets*/*
 # exception to the rule
 !datasets/.gitkeep
 
+RAW-deploy/shared/datasets-n0/*
+RAW-deploy/shared/datasets-n1/*
+RAW-deploy/shared/datasets-n2/*
+
+RAW-deploy/shared/raw-admin-n0/conf/.httpasswd
+RAW-deploy/shared/raw-admin-n1/conf/.httpasswd
+RAW-deploy/shared/raw-admin-n2/conf/.httpasswd
+
 RAW-deploy/docker-compose-node-n0.yml
 RAW-deploy/docker-compose-node-n1.yml
 RAW-deploy/docker-compose-node-n2.yml
@@ -25,31 +33,4 @@ RAW-deploy/docker-compose-node-n2.yml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 
-# Gradle:
-.idea/**/gradle.xml
-.idea/**/libraries
-
-# Mongo Explorer plugin:
-.idea/**/mongoSettings.xml
-
-## File-based project format:
-*.iws
-
-## Plugin-specific files:
-
-# IntelliJ
-/out/
-
-# mpeltonen/sbt-idea plugin
-.idea_modules/
-
-# JIRA plugin
-atlassian-ide-plugin.xml
-
-# Crashlytics plugin (for Android Studio and IntelliJ)
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
-.idea/
 
