@@ -33,7 +33,7 @@ networks:
 
 services:
   exalocal:
-    image:  hbpmip/exaremelocal
+    image: hbpmip/mipexareme
     networks:
       - "net-local"
     container_name: "exaremelocal"
