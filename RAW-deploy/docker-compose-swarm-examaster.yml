@@ -47,7 +47,7 @@ services:
       - EXA_WORKERS_WAIT=2
       - RAWUSERNAME=federation
       - RAWPASSWORD=federation
-      - RAWHOST=raw-ui
+      - RAWHOST="${swarm_node}-raw-ui"
       - RAWPORT=5555
       - RAWENDPOINT=query
       - RAWRESULTS=all
