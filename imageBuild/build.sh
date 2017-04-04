@@ -51,7 +51,7 @@ fi
 
 
 
-docker build  -t exaremelocal .
+docker build  -t mipexareme .
 
 rm Dockerfile 1>&- 2>&-
 
