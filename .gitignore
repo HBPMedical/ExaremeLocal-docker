@@ -11,6 +11,11 @@ RAW-deploy/shared/datasets-n0/*
 RAW-deploy/shared/datasets-n1/*
 RAW-deploy/shared/datasets-n2/*
 
+!RAW-deploy/shared/datasets-n0/.gitkeep
+!RAW-deploy/shared/datasets-n1/.gitkeep
+!RAW-deploy/shared/datasets-n2/.gitkeep
+
+
 RAW-deploy/shared/raw-admin-n0/conf/.httpasswd
 RAW-deploy/shared/raw-admin-n1/conf/.httpasswd
 RAW-deploy/shared/raw-admin-n2/conf/.httpasswd
