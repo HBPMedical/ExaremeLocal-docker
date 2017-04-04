@@ -7,7 +7,7 @@ usage: $0 [-h|--help] <docker-compose command>
 	- localall: start ExaremeLocal and Raw
 	- exalocal: start only ExaremeLocal
 	- raw: starts one raw instance
-	- distributed: start 2 Exareme workers, a master and 3 raw instances
+	- dis: start 2 Exareme workers, a master and 3 raw instances
 
 EOT
 }
@@ -47,7 +47,7 @@ case $1 in
     docker rm raw-ui 1>&- 2>&-
     ./start.sh unsecured up RawUI RawEngine
     ;;
-    distributed)
+    dis)
     shift   
     ./vm-destroy.sh;
     ./vm-create.sh;
