@@ -7,7 +7,9 @@ RAW-deploy/shared/datashets*/*
 # exception to the rule
 !datasets/.gitkeep
 
-
+RAW-deploy/docker-compose-node-n0.yml
+RAW-deploy/docker-compose-node-n1.yml
+RAW-deploy/docker-compose-node-n2.yml
 
 # User-specific stuff:
 .idea/**/workspace.xml
