@@ -40,7 +40,7 @@ networks:
 services:
 
   SWARMNODE-exaworker:
-    image:  hbpmip/exaremelocal
+    image:  hbpmip/mipexareme
     environment:
       - CONSULURL=SET_CONSULURL
       - RAWUSERNAME=federation
