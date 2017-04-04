@@ -51,12 +51,9 @@ case $1 in
     shift   
     ./vm-destroy.sh;
     ./vm-create.sh;
-    ./start.sh swarm n0 create
-    ./start.sh swarm n0 start
-    ./start.sh swarm n1 create
-    ./start.sh swarm n1 start
-    ./start.sh swarm n2 create
-    ./start.sh swarm n2 start
+    ./start.sh swarm n0 up
+    ./start.sh swarm n1 up
+    ./start.sh swarm n2 up
     ;;
     *)
     usage
