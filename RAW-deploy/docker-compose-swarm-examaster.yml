@@ -31,7 +31,7 @@ version: '2'
 networks:
   net-local:
     external:
-      name: "${swarm_node}/mip_net-local"
+      name: "SWARMNODE/mip_net-local"
   net-federation:
     driver: overlay
   exa-overlay:
@@ -47,7 +47,7 @@ services:
       - EXA_WORKERS_WAIT=2
       - RAWUSERNAME=federation
       - RAWPASSWORD=federation
-      - RAWHOST="${swarm_node}-raw-ui"
+      - RAWHOST=SWARMNODE-raw-ui
       - RAWPORT=5555
       - RAWENDPOINT=query
       - RAWRESULTS=all
@@ -61,14 +61,14 @@ services:
 
   SWARMNODE-RawEngine:
     image: "hbpmip/postgresraw"
-    container_name: "${swarm_node}-raw-engine"
+    container_name: "SWARMNODE-raw-engine"
     restart: unless-stopped
     networks:
      - "net-local"
     expose:
      - "5432"
     environment:
-     - "constraint:node==${swarm_node}"
+     - "constraint:node==SWARMNODE"
     volumes:
      - "${raw_data_root}:/datasets:ro"
      - "${pg_data_root}:/data:rw"
@@ -80,12 +80,12 @@ services:
 
   SWARMNODE-RawUI:
     image: "hbpmip/postgresraw-ui:v0.3"
-    container_name: "${swarm_node}-raw-ui"
+    container_name: "SWARMNODE-raw-ui"
     restart: unless-stopped
     networks:
      - "net-local"
     environment:
-     - "constraint:node==${swarm_node}"
+     - "constraint:node==SWARMNODE"
     expose:
      - "5555"
     volumes:
@@ -102,12 +102,12 @@ services:
 
   SWARMNODE-RawAdmin:
     image: "library/nginx:alpine"
-    container_name: "${swarm_node}-raw-admin"
+    container_name: "SWARMNODE-raw-admin"
     restart: unless-stopped
     networks:
      - "net-local"
     environment:
-     - "constraint:node==${swarm_node}"
+     - "constraint:node==SWARMNODE"
     ports:
      - "80:80"
     volumes:

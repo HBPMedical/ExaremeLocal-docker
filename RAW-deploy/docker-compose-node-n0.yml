@@ -31,7 +31,7 @@ version: '2'
 networks:
   net-local:
     external:
-      name: "SWARMNODE/mip_net-local"
+      name: "n0/mip_net-local"
   net-federation:
     driver: overlay
   exa-overlay:
@@ -39,13 +39,15 @@ networks:
 
 services:
 
-  SWARMNODE-exaworker:
+  n0-exaworker:
     image:  hbpmip/exaremelocal
     environment:
-      - CONSULURL=SET_CONSULURL
+      - CONSULURL=
+      - MASTER_FLAG=master
+      - EXA_WORKERS_WAIT=2
       - RAWUSERNAME=federation
       - RAWPASSWORD=federation
-      - RAWHOST=SWARMNODE-raw-ui
+      - RAWHOST=raw-ui
       - RAWPORT=5555
       - RAWENDPOINT=query
       - RAWRESULTS=all
@@ -57,16 +59,16 @@ services:
       - "exa-overlay"
       - "net-local"
 
-  SWARMNODE-RawEngine:
+  n0-RawEngine:
     image: "hbpmip/postgresraw"
-    container_name: "SWARMNODE-raw-engine"
+    container_name: "n0-raw-engine"
     restart: unless-stopped
     networks:
      - "net-local"
     expose:
      - "5432"
     environment:
-     - "constraint:node==SWARMNODE"
+     - "constraint:node==n0"
     volumes:
      - "${raw_data_root}:/datasets:ro"
      - "${pg_data_root}:/data:rw"
@@ -76,21 +78,21 @@ services:
      - POSTGRES_PASSWORD
      - POSTGRES_DB=mip
 
-  SWARMNODE-RawUI:
+  n0-RawUI:
     image: "hbpmip/postgresraw-ui:v0.3"
-    container_name: "SWARMNODE-raw-ui"
+    container_name: "n0-raw-ui"
     restart: unless-stopped
     networks:
      - "net-local"
     environment:
-     - "constraint:node==SWARMNODE"
+     - "constraint:node==n0"
     expose:
      - "5555"
     volumes:
      - "${raw_data_root}:/datasets:ro"
      - "${pg_data_root}:/data:rw"
     links:
-     - "SWARMNODE-RawEngine:raw-engine"
+     - "n0-RawEngine:raw-engine"
     environment:
      - POSTGRES_HOST=raw-engine
      - POSTGRES_PORT
@@ -98,14 +100,14 @@ services:
      - POSTGRES_PASSWORD
      - POSTGRES_DB=mip
 
-  SWARMNODE-RawAdmin:
+  n0-RawAdmin:
     image: "library/nginx:alpine"
-    container_name: "SWARMNODE-raw-admin"
+    container_name: "n0-raw-admin"
     restart: unless-stopped
     networks:
      - "net-local"
     environment:
-     - "constraint:node==SWARMNODE"
+     - "constraint:node==n0"
     ports:
      - "80:80"
     volumes:
@@ -113,4 +115,4 @@ services:
      - "${raw_admin_conf}:/etc/nginx/nginx.conf:ro"
      - "${raw_admin_log}:/var/log/nginx:rw"
     links:
-     - "SWARMNODE-RawUI:raw-ui"
+     - "n0-RawUI:raw-ui"
