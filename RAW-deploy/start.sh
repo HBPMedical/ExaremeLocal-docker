@@ -78,7 +78,7 @@ case $1 in
 		
        ######EXAREME######
         CONSUL_URL=$(cat consul_url.conf)
-'        if [ ${swarm_node} = "n2" ] ; then
+        if [ ${swarm_node} = "n2" ] ; then
 		    sed -e "s,SWARMNODE,${swarm_node},g" docker-compose-swarm-examaster.yml | sed -e "s,SET_CONSULURL,${CONSUL_URL},g" > docker-compose-node-${swarm_node}.yml
         else
             sed -e "s,SWARMNODE,${swarm_node},g" docker-compose-swarm.yml | sed -e "s,SET_CONSULURL,${CONSUL_URL},g" > docker-compose-node-${swarm_node}.yml
