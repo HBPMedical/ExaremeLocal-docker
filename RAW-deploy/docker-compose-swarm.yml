@@ -45,7 +45,7 @@ services:
       - CONSULURL=SET_CONSULURL
       - RAWUSERNAME=federation
       - RAWPASSWORD=federation
-      - RAWHOST=raw-ui
+      - RAWHOST="${swarm_node}-raw-ui"
       - RAWPORT=5555
       - RAWENDPOINT=query
       - RAWRESULTS=all
