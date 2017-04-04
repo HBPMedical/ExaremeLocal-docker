@@ -1,9 +1,9 @@
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
-
+.idea/*
 # exclude everything
 datasets/*
-
+RAW-deploy/shared/datashets*/*
 # exception to the rule
 !datasets/.gitkeep
 
@@ -48,3 +48,21 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+.idea/
+RAW-deploy/
+exaswarm-utils/activeWorkers.sh
+exaswarm-utils/clearConsul.sh
+exaswarm-utils/config.sh
+exaswarm-utils/consul_url.conf
+exaswarm-utils/createNetwork.sh
+exaswarm-utils/docker-compose.yml
+exaswarm-utils/start.sh
+exaswarm-utils/startmaster.sh
+exaswarm-utils/startworkers.sh
+exaswarm-utils/stop.sh
+imageBuild/Dockerfile.notready
+imageBuild/bootstrap.sh
+imageBuild/build.sh
+imageBuild/rawreq.sh
+imageBuild/requirements.txt
+trash/
