@@ -6,6 +6,6 @@ fi
 
 
 imgId=$1
-docker tag $imgId hbpmip/exaremelocal:latest
+docker tag $imgId hbpmip/mipexareme:latest
 docker login
-docker push hbpmip/exaremelocal
+docker push hbpmip/mipexareme
