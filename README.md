@@ -14,8 +14,8 @@ The scripts can deploy mipexareme locally and in a distributed setting. The quer
         - distributed: start 2 Exareme workers, a master and 3 raw instances<br />
         - stopdis: stops the vms of the distributed enviroment<br />
 
-2) Use the <ip>:9090/exa-view/index.html web page to send queries to Exareme and view the results.
-(The ip is the ip of the docker container that the master node of Exareme runs on. In the distributed mode the master runs on the "n2" virtual machine)
+2) Use the ip:9090/exa-view/index.html web page to send queries to Exareme and view the results.
+(The ip is the ip of the docker container that the master node of Exareme runs on. In the distributed mode the master runs on the "n2" virtual machine. The n2 ip can be found by executing docker-machine ip n2)
 
 
 **Build mipexareme**
