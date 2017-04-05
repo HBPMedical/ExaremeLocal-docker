@@ -45,7 +45,7 @@ services:
       - CONSULURL=SET_CONSULURL
       - RAWUSERNAME=federation
       - RAWPASSWORD=federation
-      - RAWHOST=SWARMNODE-raw-ui
+      - RAWHOST=raw-ui
       - RAWPORT=5555
       - RAWENDPOINT=query
       - RAWRESULTS=all
@@ -78,7 +78,7 @@ services:
 
   SWARMNODE-RawUI:
     image: "hbpmip/postgresraw-ui:v0.3"
-    container_name: "SWARMNODE-raw-ui"
+    container_name: "raw-ui"
     restart: unless-stopped
     networks:
      - "net-local"
