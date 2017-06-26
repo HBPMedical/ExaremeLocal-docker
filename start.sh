@@ -7,7 +7,8 @@ usage: $0 [-h|--help] <docker-compose command>
 	- localall: start ExaremeLocal and Raw
 	- exalocal: start only ExaremeLocal
 	- raw: starts one raw instance
-	- dis: start 2 Exareme workers, a master and 3 raw instances
+	- dis: create the VMs used to simulate the distributed environment
+	- startdis: start 2 Exareme workers, a master and 3 raw instances
 	- stopdis: stop distributed 
 EOT
 }
@@ -49,8 +50,17 @@ case $1 in
     ;;
     dis)
     shift   
+    keystore=true
+    managers=true
+    shipyard=true
     ./vm-destroy.sh;
     ./vm-create.sh;
+    ./start.sh swarm n0 up -d
+    ./start.sh swarm n1 up -d
+    ./start.sh swarm n2 up -d
+    ;;
+    startdis)
+    shift   
     ./start.sh swarm n0 up -d
     ./start.sh swarm n1 up -d
     ./start.sh swarm n2 up -d

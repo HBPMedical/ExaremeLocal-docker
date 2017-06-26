@@ -1,5 +1,5 @@
 #!/bin/sh
-#                    Copyright (c) 2016-2016
+#                    Copyright (c) 2016-2017
 #   Data Intensive Applications and Systems Labaratory (DIAS)
 #            Ecole Polytechnique Federale de Lausanne
 #
@@ -75,16 +75,17 @@ case $1 in
 	(
 		export swarm_node=$1
 		shift
-		
-       ######EXAREME######
-        CONSUL_URL=$(cat consul_url.conf)
-        if [ ${swarm_node} = "n2" ] ; then
-		    sed -e "s,SWARMNODE,${swarm_node},g" docker-compose-swarm-examaster.yml | sed -e "s,SET_CONSULURL,${CONSUL_URL},g" > docker-compose-node-${swarm_node}.yml
-        else
-            sed -e "s,SWARMNODE,${swarm_node},g" docker-compose-swarm.yml | sed -e "s,SET_CONSULURL,${CONSUL_URL},g" > docker-compose-node-${swarm_node}.yml
-        fi
+
+		######EXAREME######
+		CONSUL_URL=$(cat consul_url.conf)
+		examsater=""
+		if [ ${swarm_node} = "n0" ] ; then
+			examsater="-examaster"
+		fi
 	
-        ##################
+		sed -e "s,SWARMNODE,${swarm_node},g" docker-compose-swarm${examaster}.yml | sed -e "s,SET_CONSULURL,${CONSUL_URL},g" > docker-compose-node-${swarm_node}.yml
+ 		##################
+
 		# Adapt the environment variables which points to directories for data
 		raw_data_root=/mnt/sda1/shared/datasets
 		pg_data_root=/mnt/sda1/shared/data
@@ -98,6 +99,8 @@ case $1 in
 		# If the node-only network doesn't exists, create it.
 		docker network ls | grep -q ${swarm_node}/mip_net-local || \
 			docker network create -d bridge ${swarm_node}/mip_net-local
+		# Start the services from the master node, so that overlay network definition are cluster wide.
+		eval $(docker-machine env --swarm ${swarm_master})
 		docker-compose -f "docker-compose-node-${swarm_node}.yml" $@
 	)
 	;;

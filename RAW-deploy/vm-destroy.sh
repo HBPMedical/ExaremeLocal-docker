@@ -1,5 +1,5 @@
 #!/bin/sh
-#                    Copyright (c) 2016-2016
+#                    Copyright (c) 2016-2017
 #   Data Intensive Applications and Systems Labaratory (DIAS)
 #            Ecole Polytechnique Federale de Lausanne
 #
@@ -17,6 +17,20 @@
 # DISCLAIM ANY LIABILITY OF ANY KIND FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE
 # USE OF THIS SOFTWARE.
 
-machines="ks m0 m1 n0 n1 n2"
+: ${keystore=false}
+: ${masters=false}
+machines="n0 n1 n2"
+
+# Master nodes
+if $masters
+then
+	machines="m0 m1 $machines"
+fi
+
+# Keystore
+if $keystore
+then
+	machines="ks $machines"
+fi
 docker-machine kill $machines
 docker-machine rm $machines

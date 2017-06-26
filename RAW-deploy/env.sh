@@ -24,6 +24,8 @@
 export pg_data_root raw_data_root raw_admin_root
 
 # Whole Swarm config
+: ${swarm_master:="m0"}
+export swarm_master
 export POSTGRES_USER=mip
 export POSTGRES_PASSWORD=s3cret
 export POSTGRES_PORT=5432

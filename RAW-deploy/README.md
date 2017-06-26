@@ -51,6 +51,16 @@ In order to test a distributed deployment between nodes, a test setup based on d
  * ```vm-create.sh```: create and copy datasets to the node machines
  * ```vm-destroy.sh```: destroy and purge the created virtual machines
 
+The script do not delete / recreate by default the keystore, and the two manager nodes, in order to save time. You can enable the deletion and creation of those nodes by setting the following variables:
+ * ```keystore=true```: create or destroy the keystore VM
+ * ```masters=true```: Create or destroy the manager VMs
+ * ```shipyard=true```: only for vm-create.sh, to start Shipyard and its dependencies.
+
+like this:
+  ```!sh
+  $ keystore=true masters=true shipyard=true ./vm-create.sh
+  $ masters=true ./vm-destroy.sh # removes the VM for the whole cluster, except the keystore.
+  ```
 By default, 3 VMs will be created to manage the distributed federation, a keystore (**ks**), two Docker Swarm managers, with high availability enabled (**m0**, **m1**), as well as three nodes (**n0**, **n1**, **n2**), which each represent a geographically distributed node of the network.
 The creation script expects the following folder structure, one per node:
   ```
