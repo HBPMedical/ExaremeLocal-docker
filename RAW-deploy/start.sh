@@ -110,6 +110,13 @@ case $1 in
 			docker network disconnect -f mip_net-federation ${swarm_node}-exaworker
 		fi
 		docker-compose -f "docker-compose-node-${swarm_node}.yml" $@
+
+		# Add Missing Exareme algorithm (in the containers)
+		[ -d exareme ] || git clone https://github.com/madgik/exareme.git -b mip
+		eval $(docker-machine env --swarm ${swarm_master})
+		docker cp exareme/exareme-tools/algorithms-dev/K_MEANS ${swarm_node}-exaworker:/root/mip-algorithms/
+		docker cp exareme/exareme-tools/algorithms-dev/WP_LINEAR_REGRESSION ${swarm_node}-exaworker:/root/mip-algorithms/
+		docker restart ${swarm_node}-exaworker
 	)
 	;;
 
