@@ -36,7 +36,7 @@ then
 (
 	docker-machine create -d virtualbox \
 	    --virtualbox-memory 512 \
-	    --virtualbox-disk-size 4096 \
+	    --virtualbox-disk-size 8192 \
 	    --engine-label "eu.hbp.name=$KEYSTORE" \
 	    --engine-label "eu.hbp.function=keystore" \
 	    $KEYSTORE
@@ -58,7 +58,7 @@ then
 	    (
 		docker-machine create -d virtualbox \
 		    --virtualbox-memory 512 \
-		    --virtualbox-disk-size 4096 \
+		    --virtualbox-disk-size 8192 \
 		    --swarm \
 		    --swarm-master \
 		    --swarm-host "tcp://0.0.0.0:$MASTERPORT" \
@@ -132,7 +132,7 @@ do
     (
 	docker-machine create -d virtualbox \
 	    --virtualbox-memory 512 \
-	    --virtualbox-disk-size 4096 \
+	    --virtualbox-disk-size 8192 \
 	    --swarm \
 	    --swarm-discovery "consul://$(docker-machine ip $KEYSTORE):$CONSULPORT" \
 	    --engine-label "eu.hbp.name=$NODENAME" \
@@ -157,7 +157,7 @@ do
 	# Copy the datasets which are accessible  and exposed by the node.
 	docker-machine scp -r shared/datasets-$NODENAME $NODENAME:/mnt/sda1/shared/datasets
 
-	VBoxManage controlvm $NODENAME natpf1 "Raw Admin,tcp,,901$(echo $NODENAME|tr -d '[a-zA-Z-_]'),,80"
+	VBoxManage controlvm $NODENAME natpf1 "Raw Admin,tcp,,901$(echo $NODENAME|tr -d '[a-zA-Z-_]'),,9010"
 
 if false
 then

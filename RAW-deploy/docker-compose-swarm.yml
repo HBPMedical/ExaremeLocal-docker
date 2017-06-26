@@ -30,15 +30,19 @@ version: '2'
 
 networks:
   net-local:
-    external:
-      name: "${swarm_node}/mip_net-local"
+    driver: bridge
   net-federation:
-    driver: overlay
+    external:
+      name: mip_net-federation
 
 services:
 
   SWARMNODE-exaworker:
     image:  hbpmip/mipexareme
+    container_name: "${swarm_node}-exaworker"
+    restart: unless-stopped
+    environment:
+     - "constraint:node==${swarm_node}"
     environment:
       - CONSULURL=SET_CONSULURL
       - RAWUSERNAME=federation
@@ -105,7 +109,7 @@ services:
     environment:
      - "constraint:node==${swarm_node}"
     ports:
-     - "80:80"
+     - "9010:80"
     volumes:
      - "${raw_admin_htpasswd}:/etc/nginx/.htpasswd:ro"
      - "${raw_admin_conf}:/etc/nginx/nginx.conf:ro"

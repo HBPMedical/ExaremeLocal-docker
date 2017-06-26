@@ -79,12 +79,13 @@ case $1 in
 		######EXAREME######
 		CONSUL_URL=$(cat consul_url.conf)
 		examsater=""
-		if [ ${swarm_node} = "n0" ] ; then
+		NODENAME=n0
+		if [ ${swarm_node} = "$NODENAME" ] ; then
 			examsater="-examaster"
+			VBoxManage controlvm $NODENAME natpf1 "Exareme Master,tcp,,9090,,9090" || true;
 		fi
-	
 		sed -e "s,SWARMNODE,${swarm_node},g" docker-compose-swarm${examaster}.yml | sed -e "s,SET_CONSULURL,${CONSUL_URL},g" > docker-compose-node-${swarm_node}.yml
- 		##################
+		##################
 
 		# Adapt the environment variables which points to directories for data
 		raw_data_root=/mnt/sda1/shared/datasets
@@ -94,13 +95,13 @@ case $1 in
 		raw_admin_htpasswd=${raw_admin_root}/conf/.htpasswd
 		raw_admin_log=${raw_admin_root}/logs
 
-		# Source the node connection information so that the following actions are taken on the node, rather than the host.
-		eval $(docker-machine env ${swarm_node})
 		# If the node-only network doesn't exists, create it.
-		docker network ls | grep -q ${swarm_node}/mip_net-local || \
-			docker network create -d bridge ${swarm_node}/mip_net-local
 		# Start the services from the master node, so that overlay network definition are cluster wide.
 		eval $(docker-machine env --swarm ${swarm_master})
+		docker network ls | grep -q mip_net-federation || \
+			docker network create -d overlay mip_net-federation
+		#Workaround as placement constraints are not supported from docker-compose with docker swarm mode.
+		eval $(docker-machine env ${swarm_node})
 		docker-compose -f "docker-compose-node-${swarm_node}.yml" $@
 	)
 	;;

@@ -55,9 +55,12 @@ case $1 in
     shipyard=true
     ./vm-destroy.sh;
     ./vm-create.sh;
-    ./start.sh swarm n0 up -d
-    ./start.sh swarm n1 up -d
-    ./start.sh swarm n2 up -d
+    eval $(docker-machine env --swarm m0)
+    docker pull hbpmip/mipexareme
+    docker pull hbpmip/exaremelocal
+    #./start.sh swarm n0 up -d
+    #./start.sh swarm n1 up -d
+    #./start.sh swarm n2 up -d
     ;;
     startdis)
     shift   

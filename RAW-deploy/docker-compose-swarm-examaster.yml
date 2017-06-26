@@ -30,17 +30,19 @@ version: '2'
 
 networks:
   net-local:
-    external:
-      name: "SWARMNODE/mip_net-local"
+    driver: bridge
   net-federation:
-    driver: overlay
-  exa-overlay:
-    driver: overlay
+    external:
+      name: mip_net-federation
 
 services:
 
   SWARMNODE-exaworker:
     image:  hbpmip/mipexareme
+    container_name: "${swarm_node}-exaworker"
+    restart: unless-stopped
+    environment:
+     - "constraint:node==${swarm_node}"
     environment:
       - CONSULURL=SET_CONSULURL
       - MASTER_FLAG=master
@@ -56,19 +58,19 @@ services:
     ports:
       - "9090:9090"
     networks:
-      - "exa-overlay"
+      - "net-federation"
       - "net-local"
 
   SWARMNODE-RawEngine:
     image: "hbpmip/postgresraw"
-    container_name: "SWARMNODE-raw-engine"
+    container_name: "${swarm_node}-raw-engine"
     restart: unless-stopped
     networks:
      - "net-local"
     expose:
      - "5432"
     environment:
-     - "constraint:node==SWARMNODE"
+     - "constraint:node==${swarm_node}"
     volumes:
      - "${raw_data_root}:/datasets:ro"
      - "${pg_data_root}:/data:rw"
@@ -79,13 +81,13 @@ services:
      - POSTGRES_DB=mip
 
   SWARMNODE-RawUI:
-    image: "hbpmip/postgresraw-ui:v0.3"
-    container_name: "raw-ui"
+    image: "hbpmip/postgresraw-ui"
+    container_name: "${swarm_node}-raw-ui"
     restart: unless-stopped
     networks:
      - "net-local"
     environment:
-     - "constraint:node==SWARMNODE"
+     - "constraint:node==${swarm_node}"
     expose:
      - "5555"
     volumes:
@@ -101,15 +103,15 @@ services:
      - POSTGRES_DB=mip
 
   SWARMNODE-RawAdmin:
-    image: "library/nginx:alpine"
-    container_name: "SWARMNODE-raw-admin"
+    image: "nginx:alpine"
+    container_name: "${swarm_node}-raw-admin"
     restart: unless-stopped
     networks:
      - "net-local"
     environment:
-     - "constraint:node==SWARMNODE"
+     - "constraint:node==${swarm_node}"
     ports:
-     - "80:80"
+     - "9010:80"
     volumes:
      - "${raw_admin_htpasswd}:/etc/nginx/.htpasswd:ro"
      - "${raw_admin_conf}:/etc/nginx/nginx.conf:ro"

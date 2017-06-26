@@ -31,12 +31,11 @@ networks:
   net-local:
     driver: bridge
   net-federation:
+    driver: overlay
 
 services:
   exalocal:
     image:  hbpmip/mipexareme
-    networks:
-      - "net-local"
     container_name: "exaremelocal"
     restart: unless-stopped
     environment:
@@ -51,6 +50,9 @@ services:
       - MODE=local
     ports:
       - "9090:9090"
+    networks:
+      - "net-local"
+
   RawEngine:
     image: "hbpmip/postgresraw"
     container_name: "raw-engine"
@@ -95,7 +97,7 @@ services:
     networks:
      - "net-local"
     ports:
-     - "81:80"
+     - "9010:80"
     volumes:
      - "${raw_admin_htpasswd}:/etc/nginx/.htpasswd:ro"
      - "${raw_admin_conf}:/etc/nginx/nginx.conf:ro"
