@@ -78,10 +78,10 @@ case $1 in
 
 		######EXAREME######
 		CONSUL_URL=$(cat consul_url.conf)
-		examsater=""
+		examaster=""
 		NODENAME=n0
 		if [ ${swarm_node} = "$NODENAME" ] ; then
-			examsater="-examaster"
+			examaster="-examaster"
 			VBoxManage controlvm $NODENAME natpf1 "Exareme Master,tcp,,9090,,9090" || true;
 		fi
 		sed -e "s,SWARMNODE,${swarm_node},g" docker-compose-swarm${examaster}.yml | sed -e "s,SET_CONSULURL,${CONSUL_URL},g" > docker-compose-node-${swarm_node}.yml
