@@ -100,8 +100,15 @@ case $1 in
 		eval $(docker-machine env --swarm ${swarm_master})
 		docker network ls | grep -q mip_net-federation || \
 			docker network create -d overlay mip_net-federation
+
 		#Workaround as placement constraints are not supported from docker-compose with docker swarm mode.
 		eval $(docker-machine env ${swarm_node})
+
+		#Workaround docker-compose not disconnecting nodes from the global overlay
+		if [ $1 == "down" ]
+		then
+			docker network disconnect -f mip_net-federation ${swarm_node}-exaworker
+		fi
 		docker-compose -f "docker-compose-node-${swarm_node}.yml" $@
 	)
 	;;
