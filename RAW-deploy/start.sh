@@ -99,7 +99,7 @@ case $1 in
 		# Start the services from the master node, so that overlay network definition are cluster wide.
 		eval $(docker-machine env --swarm ${swarm_master})
 		docker network ls | grep -q mip_net-federation || \
-			docker network create -d overlay mip_net-federation
+			docker network create -d overlay --subnet=10.20.30.0/24 --ip-range=10.20.30.0/24 --gateway=10.20.30.254  mip_net-federation
 
 		#Workaround as placement constraints are not supported from docker-compose with docker swarm mode.
 		eval $(docker-machine env ${swarm_node})

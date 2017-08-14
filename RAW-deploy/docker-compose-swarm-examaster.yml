@@ -38,7 +38,7 @@ networks:
 services:
 
   SWARMNODE-exaworker:
-    image:  hbpmip/mipexareme
+    image:  hbpmip/exareme
     container_name: "${swarm_node}-exaworker"
     restart: unless-stopped
     environment:
